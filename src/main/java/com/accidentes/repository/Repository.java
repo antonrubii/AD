@@ -29,5 +29,18 @@ public class Repository implements Repositoryinterface{
         logger.debug("save accidente {}",accidente);
         String numero_accidente = repositories.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
         Accidente accidenteconId = Accidente.withId(numero_accidente);
+        repositories.put(numero_accidente,accidenteconId);
+        return accidenteconId;
+    }
+
+    @Override
+    public Accidente update(Accidente accidente, String numero_accidente) {
+        logger.debug("update accidente {}",numero_accidente);
+        return repositories.put(numero_accidente,accidente);
+    }
+    @Override
+    public Accidente delete(String numero_accidente){
+        logger.debug("delete accidente {}",numero_accidente);
+        return repositories.remove(numero_accidente);
     }
 }
